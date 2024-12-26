@@ -1,0 +1,45 @@
+server:
+  port: 9195
+spring:
+  application:
+    name: gateway-service-app
+  cloud:
+    gateway:
+      routes:
+        - id: user-service-app
+          uri: lb://user-service-app
+          predicates:
+            - Path=/user-management/**
+        - id: order-service-app
+          uri: lb://order-service-app
+          predicates:
+            - Path=/order-management/**
+        - id: product-service-app
+          uri: lb://product-service-app
+          predicates:
+            - Path=/product-management/**
+#EurekaClient
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+
+
+
+#spring.cloud.gateway.routes[0].predicates[0]=Path=/user-management/**
+#
+#spring.cloud.gateway.routes[1].id=product-service-app
+#spring.cloud.gateway.routes[1].uri=lb://product-service-app
+#spring.cloud.gateway.routes[1].predicates[0]=Path=/product-management/**
+#
+#spring.cloud.gateway.routes[2].id=order-service-app
+#spring.cloud.gateway.routes[2].uri=lb://order-service-app
+#spring.cloud.gateway.routes[2].predicates[0]=Path=/order-management/**
+
+
+
